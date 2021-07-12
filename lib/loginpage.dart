@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:orixfurnitureui/styles.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({ Key? key }) : super(key: key);
@@ -67,7 +68,7 @@ say hello to Us ''',
             SignUpButton(),
             Padding(
               padding: const EdgeInsets.all(16.0),
-              child: Text('Already have an Account? Sign in',style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold,color: Colors.black.withOpacity(0.6)),),
+              child: Text('Already have an Account? Sign in',style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold,color: Colors.black.withOpacity(0.6),shadows: [textshadow]),),
             )
           ],
         ),
@@ -149,8 +150,16 @@ class SignUpButton extends StatelessWidget {
       height: 80,
       width: 360,
       decoration: BoxDecoration(
-        color: Colors.deepPurple[900],
-        borderRadius: BorderRadius.all(Radius.circular(20))
+        color: const Color(0xFF443B5A),
+        borderRadius: const BorderRadius.all(Radius.circular(20)),
+        boxShadow: [
+          BoxShadow(
+        color: Colors.black.withOpacity(0.5),
+        spreadRadius: 2,
+        blurRadius: 10,
+        offset: Offset(0, 2), 
+      ),
+        ]
       ),
       child: Center(child: Text('Signup',style: TextStyle(fontSize: 24,color: Colors.white,fontWeight: FontWeight.bold),)),
     );

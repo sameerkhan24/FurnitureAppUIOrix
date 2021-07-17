@@ -5,3 +5,4 @@ Shadow textshadow = Shadow(
                 color: Colors.black.withOpacity(0.4),
                 offset: Offset(0, 0),
                 );
+Color orixpurple =const Color(0xFF443B5A);     

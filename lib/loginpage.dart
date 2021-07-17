@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:orixfurnitureui/homepage.dart';
 import 'package:orixfurnitureui/styles.dart';
 
 class LoginPage extends StatefulWidget {
@@ -146,22 +147,27 @@ class SignUpButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 80,
-      width: 360,
-      decoration: BoxDecoration(
-        color: const Color(0xFF443B5A),
-        borderRadius: const BorderRadius.all(Radius.circular(20)),
-        boxShadow: [
-          BoxShadow(
-        color: Colors.black.withOpacity(0.5),
-        spreadRadius: 2,
-        blurRadius: 10,
-        offset: Offset(0, 2), 
+    return GestureDetector(
+      onTap: (){
+        Navigator.push(context, MaterialPageRoute(builder: (context){return HomePage();}));
+      },
+      child: Container(
+        height: 80,
+        width: 360,
+        decoration: BoxDecoration(
+          color: const Color(0xFF443B5A),
+          borderRadius: const BorderRadius.all(Radius.circular(20)),
+          boxShadow: [
+            BoxShadow(
+          color: Colors.black.withOpacity(0.2),
+          spreadRadius: 2,
+          blurRadius: 10,
+          offset: Offset(0, 3), 
+        ),
+          ]
+        ),
+        child: Center(child: Text('Signup',style: TextStyle(fontSize: 24,color: Colors.white,fontWeight: FontWeight.bold),)),
       ),
-        ]
-      ),
-      child: Center(child: Text('Signup',style: TextStyle(fontSize: 24,color: Colors.white,fontWeight: FontWeight.bold),)),
     );
   }
 }
@@ -183,7 +189,7 @@ class ArrowPanel extends StatelessWidget {
             width: 60,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: Colors.yellow
+              color: Colors.yellow.shade700
             ),
             child: Icon(Icons.arrow_back,color: Colors.white,),
           ),
@@ -241,7 +247,7 @@ class ArrowPanel extends StatelessWidget {
             width: 60,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: Colors.red
+              color: Colors.deepOrange.shade700
             ),
             child: Icon(Icons.arrow_forward,color: Colors.white,),
           ),

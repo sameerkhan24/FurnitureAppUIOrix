@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:orixfurnitureui/productpage.dart';
 import 'package:orixfurnitureui/styles.dart';
+import 'package:flutter/cupertino.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({ Key? key }) : super(key: key);
@@ -26,15 +28,22 @@ class _HomePageState extends State<HomePage> {
         elevation: 0,
         leading: Padding(
           padding: const EdgeInsets.only(left:10.0),
-          child: Icon(Icons.short_text_rounded,color: Colors.black.withOpacity(0.7),size: 40,),
+          child: Builder(
+          builder: (context) => IconButton(
+            icon: Icon(Icons.short_text_rounded,color: Colors.black.withOpacity(0.7),size: 40,),
+            onPressed: () => Scaffold.of(context).openDrawer(),
+          ),
+        ),
         ),
         title: Text('Orix Home',style: TextStyle(fontSize: 20,color: Colors.black.withOpacity(0.7),fontWeight: FontWeight.bold),),
         actions: [
           Padding(
             padding: const EdgeInsets.only(right:10.0),
             child: Icon(Icons.shopping_bag_outlined,color: Colors.black.withOpacity(0.7),size: 28,),
-          )],
+          )
+          ],
       ),
+      drawer: SideBar(),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.start,
@@ -240,6 +249,147 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
+class SideBar extends StatefulWidget {
+  const SideBar({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  State<SideBar> createState() => _SideBarState();
+}
+
+class _SideBarState extends State<SideBar> {
+  bool isSwitched = false;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 350,
+      child: Drawer(
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.only(left:30.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                GestureDetector(
+                  onTap: (){Navigator.pop(context);},
+                  child: Text('x',style: TextStyle(fontSize: 22,fontWeight: FontWeight.bold,color: Colors.black.withOpacity(0.8)),)),
+                Padding(
+                  padding: const EdgeInsets.only(top:40.0),
+                  child: Row(
+                    children: [
+                      Container(
+                        height: 60,
+                        width: 60,
+                        decoration: BoxDecoration(
+                          color: Colors.yellow.shade600,
+                          borderRadius: BorderRadius.all(Radius.circular(5)),
+                        ),
+                        child: Icon(Icons.person,size: 50,color: Colors.red.shade700,),
+                      ),
+                      SizedBox(width: 20,),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('Sajan Sharma',style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold),),
+                          SizedBox(height: 5,),
+                          Text('sajan007@gmail.com',style: TextStyle(fontSize: 14,fontWeight: FontWeight.w500)),
+                          SizedBox(height: 5,),
+                          Text('Location: New Delhi',style: TextStyle(color: Colors.grey,fontSize: 12,),),
+                          ],
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 50,),
+                SideBarTile('Categories','See all the furniture'),
+                SizedBox(height: 40,),
+                SideBarTile('Cart','Check out the order'),
+                SizedBox(height: 40,),
+                SideBarTile('Payment Card','See the available cards'),
+                SizedBox(height: 40,),
+                PushNotif(),
+                SizedBox(height: 40,),
+                Padding(
+              padding: const EdgeInsets.only(right:30.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Logout',style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold,color: Colors.black.withOpacity(0.8)),),
+                      SizedBox(height: 10,),
+                      Text('Exit the App',style: TextStyle(fontSize: 14,color: Colors.grey),),
+                    ],
+                  ),
+                  Icon(Icons.arrow_forward_rounded)
+                ],
+              ),
+            )
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Padding PushNotif() {
+    return Padding(
+              padding: const EdgeInsets.only(right:20.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Push Notifications',style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold,color: Colors.black.withOpacity(0.8)),),
+                      SizedBox(height: 10,),
+                      Text('Click to turn on notifications',style: TextStyle(fontSize: 14,color: Colors.grey),),
+                    ],
+                  ),
+                  Container(
+                    height: 40,
+                    width: 50,
+                    child: CupertinoSwitch(
+          value: isSwitched,
+          onChanged: (value){
+            setState(() {
+              isSwitched=value;
+            });
+          },
+          activeColor: Colors.orange.shade800,
+          trackColor: Colors.grey,
+        ),
+                  ),
+                ],
+              ),
+            );
+  }
+
+  Padding SideBarTile(String t,String desc) {
+    return Padding(
+              padding: const EdgeInsets.only(right:30.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(t,style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold,color: Colors.black.withOpacity(0.8)),),
+                      SizedBox(height: 10,),
+                      Text(desc,style: TextStyle(fontSize: 14,color: Colors.grey),),
+                    ],
+                  ),
+                  Icon(Icons.arrow_forward_rounded)
+                ],
+              ),
+            );
+  }
+}
+
 class PopularChairCard extends StatelessWidget {
   String imgUrl;
   String model;
@@ -309,9 +459,13 @@ class ChairImgScroller extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         child: Row(
           children: [
-            ChairCard(imgUrl: 'assets/whitechair.png',model: 'Ox White\nChair',price: '\$200',),
-            ChairCard(imgUrl: 'assets/greenchair.png',model: 'Grass Green\nChair',price: '\$400',),
-            ChairCard(imgUrl: 'assets/bluechair.png',model: 'Water Blue\nChair',price: '\$300',),
+            ChairCard(tag: '1',imgUrl: 'assets/whitechair.png',model: 'Ox White\nChair',price: '\$200',),
+            GestureDetector(
+              onTap: (){
+        Navigator.push(context, MaterialPageRoute(builder: (context){return ProductPage();}));
+      },
+              child: ChairCard(tag: '2',imgUrl: 'assets/greenchair.png',model: 'Grass Green\nChair',price: '\$400',)),
+            ChairCard(tag: '3',imgUrl: 'assets/bluechair.png',model: 'Water Blue\nChair',price: '\$300',),
           ],
         ),
       ),
@@ -320,12 +474,13 @@ class ChairImgScroller extends StatelessWidget {
 }
 
 class ChairCard extends StatelessWidget {
-  String imgUrl,model,price;
+  String imgUrl,model,price,tag;
    ChairCard({
     Key? key,
     required this.imgUrl,
     required this.model,
     required this.price,
+    required this.tag,
   }) : super(key: key);
 
   @override
@@ -358,7 +513,9 @@ class ChairCard extends StatelessWidget {
                     child: Container(
                       //color: Colors.yellow,
                       height: 150,
-                      child: Image.asset(imgUrl),
+                      child: Hero(
+                        tag: tag,
+                        child: Image.asset(imgUrl)),
                     ),
                   ),
                 ),
